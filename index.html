@@ -9,12 +9,14 @@
   <!-- three.js -->
   <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
   <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+
+  <link rel="stylesheet" href="src/styles/main.css">
 </head>
 <body>
 
 <!-- Starting an immersive WebXR session requires user interaction.
     We start this one with a simple button. -->
-<button onclick="activateXR()">Start Hello WebXR</button>
+<button onclick="activateXR()">Enter AR</button>
 
 <script>
     async function activateXR() {
@@ -27,7 +29,14 @@
 
         const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
         directionalLight.position.set(10, 15, 10);
+        directionalLight.castShadow = true; // default false
+        //Set up shadow properties for the light
+        directionalLight.shadow.mapSize.width = 512; // default
+        directionalLight.shadow.mapSize.height = 512; // default
+        directionalLight.shadow.camera.near = 0.5; // default
+        directionalLight.shadow.camera.far = 500; // default
         scene.add(directionalLight);
+
 
         // Set up the WebGLRenderer, which handles rendering to the session's base layer.
         const renderer = new THREE.WebGLRenderer({
@@ -36,6 +45,8 @@
         canvas: canvas,
         context: gl
 	    });
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
 	    renderer.autoClear = false;
 
         // The API directly updates the camera matrices.
@@ -60,14 +71,30 @@
         // Perform hit testing using the viewer as origin.
         const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
 
+        // Add ground plane to receive shadows
+        const ground = new THREE.Mesh(
+            new THREE.PlaneGeometry(10, 10),
+            new THREE.ShadowMaterial({ opacity: 0.5 })
+        );
+        ground.rotation.x = -Math.PI / 2; // Lie flat on the ground
+        ground.receiveShadow = true;
+        scene.add(ground);
+
         const loader = new THREE.GLTFLoader();
         let reticle;
         
-        loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/reticle/reticle.gltf", function(gltf) {
-            reticle = gltf.scene;
-            reticle.visible = false;
-            scene.add(reticle);
-        })
+        loader.load(
+            "https://immersive-web.github.io/webxr-samples/media/gltf/reticle/reticle.gltf",
+            function (gltf) {
+                reticle = gltf.scene;
+                reticle.visible = false;
+                scene.add(reticle);
+            },
+            undefined,
+            function (error) {
+                console.error("An error occurred loading the reticle model:", error);
+            }
+        );
 
         // sunflower pushpa
         let flower;
@@ -79,13 +106,24 @@
         let skeleton;
         loader.load("/assets/models/skeleton_1m.glb", function(gltf) {
             skeleton = gltf.scene;
+            skeleton.traverse((node) => {
+                if (node.isMesh) {
+                    node.castShadow = true; // Enable for casting shadows
+                }
+            });
+
         });
+
+        const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
+        scene.add(helper);
+
 
 
         session.addEventListener("select", (event) => {
         if (skeleton) {
             const clone = skeleton.clone();
             clone.position.copy(reticle.position);
+
             scene.add(clone);
         }
         });
