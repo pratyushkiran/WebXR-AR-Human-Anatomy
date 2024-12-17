@@ -1,0 +1,16 @@
+{
+  "name": "webxr-ar-human-anatomy",
+  "version": "1.0.0",
+  "description": "AR Human Internal Organs Anatomy using WebXR",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite"
+  },
+  "author": "Pratyush Kiran Panda",
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.171.0",
+    "vite": "^6.0.3"
+  }
+}
