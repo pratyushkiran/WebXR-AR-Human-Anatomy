@@ -60,6 +60,8 @@ body {
     font-family: Arial, sans-serif;
     overflow: hidden;
   }
+
+  
   
   .container {
     display: flex;
@@ -67,33 +69,39 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-color: #2a2a2a;
     text-align: center;
   }
   
   .image img {
     width: 150px;
     height: auto;
+    padding: 20px;
+    border-radius: 100%; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); 
+    background-color: rgb(59, 59, 59);
   }
   
   .text {
     margin: 20px 0;
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #ffffff;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); 
   }
   
   button {
-    padding: 10px 20px;
-    font-size: 18px;
-    color: white;
-    background-color: #007bff;
+    padding: 20px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background-color: #ffe600;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
   
   button:hover {
-    background-color: #0056b3;
+    background-color: #978800;
   }
   
