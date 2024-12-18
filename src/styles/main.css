@@ -1,59 +1,3 @@
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
- }
-
-.container {
-    text-align: center;
-}
-
-.image {
-    position: relative;
-    width: 100%;
-    max-width: 200px; 
-    margin: 0 auto;
-}
-
-.image img {
-    width: 100%;
-    border-radius: 100%; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); 
-    padding: 0px;
-
-}
-
-.text {
-    font-size: 26px;
-    font-weight: 800;
-    margin: 10px 0 50px 0;
-    color: #383838;
-}
-
-button {
-    padding: 15px 80px;
-    font-size: 20px;
-    font-weight: 600;
-    background-color: #5b007d;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-
-}
-
-button:hover {
-    background-color: #330045;
-}
- */
-
-
 
 body {
     margin: 0;
@@ -61,48 +5,106 @@ body {
     overflow: hidden;
   }
 
-  
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #2a2a2a;
-    text-align: center;
-  }
-  
-  .image img {
-    width: 150px;
-    height: auto;
-    padding: 20px;
-    border-radius: 100%; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); 
-    background-color: rgb(59, 59, 59);
-  }
-  
-  .text {
-    margin: 20px 0 50px 0;
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); 
-  }
-  
-  button {
-    padding: 15px 40px;
-    font-size: 20px;
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-    background-color: #ffe600;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 40px;
-  }
-  
-  button:hover {
-    background-color: #978800;
-  }
-  
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #2a2a2a;
+  text-align: center;
+}
+
+.image img {
+  width: 150px;
+  height: auto;
+  padding: 20px;
+  border-radius: 100%; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); 
+  background-color: rgb(59, 59, 59);
+}
+
+.text {
+  margin: 20px 0 50px 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); 
+}
+
+button {
+  padding: 15px 40px;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  background-color: #ffe600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 40px;
+}
+
+button:hover {
+  background-color: #978800;
+}
+
+
+
+/* Overlay Styling */
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000; /* Ensures it's above other elements */
+  pointer-events: auto; /* Allows interaction with elements inside */
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Pushes buttons to the bottom */
+  align-items: flex-end;
+  background-color: rgba(0, 0, 0, 0.3); /* Optional translucent background */
+}
+
+/* Button Styling */
+#overlay button {
+  padding: 10px 10px;
+  margin: 40px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  background-color: #ffe600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#overlay button:hover {
+  background-color: #978800;
+}
+
+#spawn-button {
+  display: none;
+  position: absolute;
+  bottom: 70px;
+}
+
+/* Override specific styles for the back button */
+#back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 10px !important;      
+  background-color: #e69d01 !important; 
+  border-radius: 40px !important;        
+  cursor: pointer !important;          
+  width: 60px !important;
+  height: 60px !important;
+}
+
+button img {
+  width: 40px;   
+  height: 40px;  
+  object-fit: fill;  
+}
+
