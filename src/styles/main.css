@@ -98,13 +98,13 @@ button:hover {
   background-color: #e69d01 !important; 
   border-radius: 40px !important;        
   cursor: pointer !important;          
-  width: 60px !important;
-  height: 60px !important;
+  width: 50px !important;
+  height: 50px !important;
 }
 
 button img {
-  width: 40px;   
-  height: 40px;  
+  width: 30px;   
+  height: 30px;  
   object-fit: fill;  
 }
 

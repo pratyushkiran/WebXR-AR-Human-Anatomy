@@ -19,7 +19,7 @@ async function activateXR() {
 
     // Create an image element for the back button
     const backImage = document.createElement("img");
-    backImage.src = "assets/images/back_button.png"; 
+    backImage.src = "assets/images/back_button_white.png"; 
     backButton.appendChild(backImage);
 
     // Create buttons for selecting models and spawning them
@@ -110,11 +110,7 @@ async function activateXR() {
             reticle = gltf.scene;
             reticle.visible = false;  // Initially hide reticle
             scene.add(reticle);
-        },
-        undefined,
-        function (error) {
-            console.error("An error occurred loading the reticle model:", error);
-        }
+        }, 
     );
     
     // Load flower (sunflower) model
