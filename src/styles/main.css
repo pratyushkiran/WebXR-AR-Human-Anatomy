@@ -50,7 +50,8 @@ button:hover {
 
 
 
-/* Overlay Styling */
+/* -------------------- Overlay Styling -------------------- */
+
 #overlay {
   position: absolute;
   top: 0;
@@ -68,14 +69,14 @@ button:hover {
 
 /* Button Styling */
 #overlay button {
-  padding: 10px 10px;
-  margin: 40px 10px;
+  padding: 5px 10px;
+  margin: 40px 5px;
   font-size: 16px;
   font-weight: bold;
   color: #000;
   background-color: #ffe600;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
 }
 
@@ -86,16 +87,21 @@ button:hover {
 #spawn-button {
   display: none;
   position: absolute;
-  bottom: 70px;
+  padding: 15px 20px !important;
+  bottom: 90px;
+  font-size: 20px !important;
+  margin: 0 !important;
+
 }
 
 /* Override specific styles for the back button */
 #back-button {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 10px !important;
+  left: 10px !important;
   padding: 10px !important;      
-  background-color: #e69d01 !important; 
+  margin: 50px 0 0 5px !important;
+  background-color: #00000053 !important; 
   border-radius: 40px !important;        
   cursor: pointer !important;          
   width: 50px !important;
