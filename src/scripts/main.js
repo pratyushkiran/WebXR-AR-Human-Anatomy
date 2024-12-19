@@ -243,3 +243,5 @@ async function setupXRSpaces(session) {
   const hitTestSource = await session.requestHitTestSource({ space: viewerSpace });
   return { referenceSpace, viewerSpace, hitTestSource };
 }
+
+
