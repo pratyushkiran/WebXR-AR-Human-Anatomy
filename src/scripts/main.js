@@ -108,6 +108,15 @@ async function activateXR() {
     loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/reticle/reticle.gltf", function(gltf) {
       reticle = gltf.scene;
       reticle.visible = false;
+      reticle.traverse((child) => {
+        if (child.isMesh) {
+            child.material.transparent = true;
+            child.material.opacity = 1; // Ensure opacity is sufficient
+            child.castShadow = false; // Reticle usually shouldn't cast shadows
+            child.receiveShadow = false; // Reticle usually shouldn't receive shadows
+        }
+    });
+    
       scene.add(reticle);
     })
     
@@ -121,9 +130,14 @@ async function activateXR() {
     
     // Load skeleton model
     let skeleton;
-    loader.load("assets/models/human_skeleton_1.6metres.glb", 
-        function(gltf) {
-            skeleton = gltf.scene;
+    loader.load("assets/models/human_skeleton_1.6metres.glb", function(gltf) {
+      skeleton = gltf.scene;
+    //   skeleton.traverse((child) => {
+    //     if (child.isMesh) {
+    //         child.material.side = THREE.DoubleSide; // Ensure visibility from both sides
+    //     }
+    // });
+    
     });
 
     // Default selected model is Skeleton
@@ -157,7 +171,7 @@ async function activateXR() {
           reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z)
           reticle.updateMatrixWorld(true);
         }
-        
+
         // Update visibility of spawn button
         updateSpawnButtonVisibility();  
 
@@ -186,17 +200,18 @@ function setupScene() {
   // Add directional light to the scene
   const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
   directionalLight.position.set(10, 15, 10);
-  directionalLight.castShadow = true;  // Enable shadow casting for the light
+  // directionalLight.intensity = 1.5; // Increase intensity for better illumination
+  // directionalLight.castShadow = true;  // Enable shadow casting for the light
   scene.add(directionalLight);
 
-  // Add ground plane to the scene with shadow receiving
-  const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(10, 10),
-    new THREE.ShadowMaterial({ opacity: 0.5 })
-  );
-  ground.rotation.x = -Math.PI / 2;
-  ground.receiveShadow = true;
-  scene.add(ground);
+  //Set up shadow properties for the light
+  // directionalLight.shadow.mapSize.width = 512; // default
+  // directionalLight.shadow.mapSize.height = 512; // default
+  // directionalLight.shadow.camera.near = 0.5; // default
+  // directionalLight.shadow.camera.far = 500; // default
+
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Soft ambient light
+  scene.add(ambientLight);
 
   return scene;
 }
@@ -212,6 +227,8 @@ function setupCamera() {
 function setupRenderer(canvas, gl) {
   const renderer = new THREE.WebGLRenderer({ canvas, context: gl, alpha: true });
   renderer.autoClear = false;  // Prevent automatic clearing of the canvas
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
   return renderer;
 }
 
