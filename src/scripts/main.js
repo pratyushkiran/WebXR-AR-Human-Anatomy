@@ -105,13 +105,11 @@ async function activateXR() {
     
     // Load reticle model
     let reticle;
-    loader.load('assets/models/reticle.gltf',
-        function (gltf) {
-            reticle = gltf.scene;
-            reticle.visible = false;  // Initially hide reticle
-            scene.add(reticle);
-        }, 
-    );
+    loader.load("https://immersive-web.github.io/webxr-samples/media/gltf/reticle/reticle.gltf", function(gltf) {
+      reticle = gltf.scene;
+      reticle.visible = false;
+      scene.add(reticle);
+    })
     
     // Load flower (sunflower) model
     let flower;
@@ -150,18 +148,19 @@ async function activateXR() {
         camera.projectionMatrix.fromArray(view.projectionMatrix);
         camera.updateMatrixWorld(true);
 
-        const hitTestResults = frame.getHitTestResults(hitTestSource);  // Get hit test results for placing models
-        if (hitTestResults.length > 0) {
+      
+     
+        const hitTestResults = frame.getHitTestResults(hitTestSource);
+        if (hitTestResults.length > 0 && reticle) {
           const hitPose = hitTestResults[0].getPose(referenceSpace);
           reticle.visible = true;
-          reticle.position.set(
-            hitPose.transform.position.x,
-            hitPose.transform.position.y,
-            hitPose.transform.position.z
-          );
-          reticle.updateMatrixWorld(true);  // Update reticle position in the scene
-          updateSpawnButtonVisibility();  // Update visibility of spawn button
+          reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z)
+          reticle.updateMatrixWorld(true);
         }
+        
+        // Update visibility of spawn button
+        updateSpawnButtonVisibility();  
+
         renderer.render(scene, camera);  // Render the scene
       }
     }
