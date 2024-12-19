@@ -105,7 +105,7 @@ async function activateXR() {
     
     // Load reticle model
     let reticle;
-    loader.load('https://immersive-web.github.io/webxr-samples/media/gltf/reticle/reticle.gltf',
+    loader.load('assets/models/reticle.gltf',
         function (gltf) {
             reticle = gltf.scene;
             reticle.visible = false;  // Initially hide reticle
@@ -127,7 +127,7 @@ async function activateXR() {
     
     // Load skeleton model
     let skeleton;
-    loader.load("assets/models/skeleton_1m.glb", 
+    loader.load("assets/models/human_skeleton_1.6metres.glb", 
         function(gltf) {
             skeleton = gltf.scene;
     });
